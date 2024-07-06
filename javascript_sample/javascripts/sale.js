@@ -6,9 +6,11 @@ function add() {
   const selectedOption = priceElement.options[priceElement.selectedIndex];
   const price = parseInt(selectedOption.dataset.price);
   const number = parseInt(numberElement.value);
+  const name = selectedOption.dataset.name;
   let purchase = {
     price: price,
     number: number,
+    name: name,
   };
   purchases.push(purchase);
   window.alert(`${display()}\nSubtotal: ${subtotal()} yen`);
@@ -17,7 +19,7 @@ function add() {
 function display() {
   let string = "Order details:\n";
   for (let i = 0; i < purchases.length; i++) {
-    string += `${purchases[i].number} x ${purchases[i].price} yen\n`;
+    string += `${purchases[i].number} ${purchases[i].name} x ${purchases[i].price} yen\n`;
   }
   return string;
 }
@@ -33,7 +35,7 @@ function subtotal() {
 function calc() {
   const sum = subtotal();
   const postage = calcPostageFromPurchase(sum);
-  window.alert(`Subtotal: ${sum} yen\nShipping charge: ${postage} yen\nTotal: ${sum + postage} yen`);
+  window.alert(`${display()}\Subtotal: ${sum} yen\nShipping charge: ${postage} yen\nTotal: ${sum + postage} yen`);
   purchases = [];
   priceElement.value = "0"; 
   numberElement.value = "";
